@@ -1,0 +1,35 @@
+<ion-view view-title="House Control">
+  <ion-content align="center">
+    <div>
+        <img style="top: 100px; left: 220px;  position: absolute" src="img/HouseCroquis.png">
+
+        <img ng-show = showLightOff1 ng-click="TurnOnLights(1)" style="top: 160px; left: 421px; width: 50px; height: 50px ; position: absolute" src="img/bulbOff.png" />
+        <img ng-show = showLightOff2 ng-click="TurnOnLights(2)" style="top: 163px; left: 800px; width: 50px; height: 50px ; position: absolute" src="img/bulbOff.png" />
+        <img ng-show = showLightOff5 ng-click="TurnOnLights(5)" style="top: 453px; left: 851px; width: 50px; height: 50px ; position: absolute" src="img/bulbOff.png" />
+        <img ng-show = showLightOff4 ng-click="TurnOnLights(4)" style="top: 395px; left: 626px; width: 50px; height: 50px ; position: absolute" src="img/bulbOff.png" />
+        <img ng-show = showLightOff3 ng-click="TurnOnLights(3)" style="top: 450px; left: 369px; width: 50px; height: 50px ; position: absolute" src="img/bulbOff.png" />
+        <img ng-show = showLightOn1 ng-click="TurnOffLights(1)" style="top: 160px; left: 421px; width: 50px; height: 50px ; position: absolute" src="img/bulbOn.png" />
+        <img ng-show = showLightOn2 ng-click="TurnOffLights(2)" style="top: 163px; left: 800px; width: 50px; height: 50px ; position: absolute" src="img/bulbOn.png" />
+        <img ng-show = showLightOn5 ng-click="TurnOffLights(5)" style="top: 453px; left: 851px; width: 50px; height: 50px ; position: absolute" src="img/bulbOn.png" />
+        <img ng-show = showLightOn4 ng-click="TurnOffLights(4)" style="top: 395px; left: 626px; width: 50px; height: 50px ; position: absolute" src="img/bulbOn.png" />
+        <img ng-show = showLightOn3 ng-click="TurnOffLights(3)" style="top: 450px; left: 369px; width: 50px; height: 50px ; position: absolute" src="img/bulbOn.png" />
+        <img style="top: 350px; left: 195px; width: 50px; height: 50px ; position: absolute" src={{lockImages[0]}} />
+        <img style="top: 260px; left: 420px; width: 50px; height: 50px ; position: absolute" src={{lockImages[1]}} />
+        <img style="top: 260px; left: 770px; width: 50px; height: 50px ; position: absolute" src={{lockImages[2]}} />
+        <img style="top: 350px; left: 1050px; width: 50px; height: 50px ; position: absolute" src={{lockImages[3]}} />
+
+
+    </div>
+    <div>
+        <button ng-click="TakePhoto()" class="button button-calm" style="top: 600px; left: 421px;position: absolute; width: 220px; height: 50px">
+            Tomar fotografía del jardín
+          </button>
+    </div>
+    <div>
+        <button ng-click="TurnOnOfflights()" class="button button-balanced" style="top: 600px; left: 700px;position: absolute ; width: 220px; height: 50px">
+            {{buttonLightsLabel}}
+          </button>
+    </div>
+
+  </ion-content>
+</ion-view>
