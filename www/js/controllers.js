@@ -22,12 +22,14 @@ angular.module('starter.controllers', [])
     $scope.showLightOff4 = true;
     $scope.showLightOff5 = true;
     $scope.allLightsOn = false;
+    $scope.auth = "";
     $scope.buttonLightsLabel = "Encender todas las luces";
-    $scope.host = "10.6.0.166";
+    $scope.host = "192.168.1.146";
     $scope.port = "12913";
     $scope.lockImages = ["img/lockOpen.png","img/lockOpen.png","img/lockOpen.png","img/lockOpen.png"];
-
     this.checkDoorsState = checkDoorsState;
+
+    $scope.showMenu = false;
     
     checkDoorsState();
 
@@ -38,21 +40,16 @@ angular.module('starter.controllers', [])
       $scope.modal = modal;
     });
 
-    // Triggered in the login modal to close it
-    $scope.closeLogin = function () {
-      $scope.modal.hide();
-    };
-
     // Open the login modal
-    $scope.login = function () {
-      $http.get("http://"+$scope.host+":"+ $scope.port +"/doors/state")
-        .then(function (response) {
-          console.log(response);
-          $scope.myWelcome = response.data;
-        })
-      console.log("hollaaa");
-      $scope.modal.show();
-    };
+    // $scope.login = function () {
+    //   $http.get("http://"+$scope.host+":"+ $scope.port +"/doors/state")
+    //     .then(function (response) {
+    //       console.log(response);
+    //       $scope.myWelcome = response.data;
+    //     })
+    //   console.log("hollaaa");
+    //   $scope.modal.show();
+    // };
 
     $scope.TakePhoto = function () {
       var req = {
@@ -75,7 +72,8 @@ angular.module('starter.controllers', [])
 
     function setDoorImages (dataDoors){
       var lastFour = dataDoors.substr(dataDoors.length - 5);
-      for(var i = 0; i < lastFour.length; i++){
+      console.log(lastFour);
+      for(var i = 0; i < (lastFour.length)-1; i++){
         if (lastFour[i] == "1"){ //abierto
           $scope.lockImages[i] = "img/lockOpen.png";
           console.log("abierto");
@@ -259,13 +257,28 @@ angular.module('starter.controllers', [])
 
     // Perform the login action when the user submits the login form
     $scope.doLogin = function () {
-      console.log('Doing login', $scope.loginData);
-
-      // Simulate a login delay. Remove this and replace with your login
-      // code if using a login system
-      $timeout(function () {
-        $scope.closeLogin();
-      }, 1000);
+      if($scope.loginData.username == undefined || $scope.loginData.password == undefined){
+        console.log("Vacio");
+      }
+      else{
+        $scope.auth = btoa($scope.loginData.username+':'+$scope.loginData.password);
+        console.log( $scope.auth);
+        
+        var req = {
+          method: 'GET',
+          url: "http://"+$scope.host+":"+$scope.port+"/login",
+          params: $scope.auth 
+        }
+        $http(req).then(function (response) { 
+          console.log(response.data); 
+          if(response.data.length >1){
+            console.log("User invalido");
+          }
+          else{
+            $scope.houseControl();
+          }
+        });
+      }
     }
     $scope.houseControl = function () {
       $state.go('app.search');
